@@ -9,6 +9,7 @@
         <table>
             <thead>
                 <tr>
+                    <th></th>
                     <th>Name</th>
                     <th>AKA</th>
                     <th>Rank</th>
@@ -17,13 +18,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in data %}
+                {% for player in data %}
                 <tr>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.aka }}</td>
-                    <td>{{ item.full_rank }}</td>
-                    <td>{{ item.games }}</td>
-                    <td>{{ item.winrate }}%</td>
+                    <td>{{ player.place }}</td>
+                    <td>{{ player.name }}</td>
+                    <td>{{ player.aka }}</td>
+                    <td>{{ player.full_rank }}</td>
+                    <td>{{ player.games }}</td>
+                    <td>{{ player.winrate }}%</td>
                 </tr>
                 {% endfor %}
             </tbody>

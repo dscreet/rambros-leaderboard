@@ -51,6 +51,9 @@ def get_stats():
 @app.route('/')
 def index():
     sorted_leaderboard = sorted(get_stats(), key=calc_player_rank_score, reverse=True)
+    # the place of the players in the leaderboard
+    for index, player in enumerate(sorted_leaderboard, start=1):
+        player['place'] = index
     print(sorted_leaderboard)
     return render_template('index.html', data=sorted_leaderboard)
 
