@@ -1,4 +1,4 @@
-# rambros-leaderboard
+
 Soloq leaderboard made for friend group
 
 ## Stack
