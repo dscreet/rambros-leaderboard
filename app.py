@@ -17,6 +17,14 @@ aka = {
     "xanax": "allergic to good botlanes"
 }
 
+def sort_leaderboard(data):
+    print('uh')
+    print(data)
+    tiers = {'DIAMOND': 3, 'EMERALD': 2, 'PLATINUM': 1}
+    ranks = {'IV': 1, 'III': 2, 'II': 3, 'I': 4}
+    return (tiers.get(data['tier']) * 1000) + (ranks.get(data['rank']) * 100) + data['lp']
+
+
 def fetch_data():
 
     summoners = config['summoner_ids'].items()
@@ -33,14 +41,15 @@ def fetch_data():
         processed_item = {
             'name': k,
             'aka': aka[k],
-            'rank': f'{soloq_stats["tier"]} {soloq_stats["rank"]} {soloq_stats["leaguePoints"]}lp',
+            'tier': soloq_stats["tier"],
+            'rank': soloq_stats["rank"],
+            'lp': soloq_stats["leaguePoints"],
+            'disp': f'{soloq_stats["tier"]} {soloq_stats["rank"]} {soloq_stats["leaguePoints"]}lp',
             'games': games,
             'winrate': winrate
         }
 
         processed_data.append(processed_item)
-    
-    print(processed_data)
 
     return processed_data
     
@@ -48,7 +57,9 @@ def fetch_data():
 
 @app.route('/')
 def index():
-    return render_template('index.html', data=fetch_data())
+    sorted_leaderboard = sorted(fetch_data(), key=sort_leaderboard, reverse=True)
+    print(sorted_leaderboard)
+    return render_template('index.html', data=sorted_leaderboard)
 
 if __name__ == '__main__':
     app.run(debug=True)
