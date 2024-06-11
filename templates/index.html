@@ -1,2 +1,33 @@
-<!doctype html>
-<h1>Hello {{ data }}!</h1>
+<!DOCTYPE html>
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>rambros leaderboard</title>
+</head>
+<center>
+    <body>
+        <h1>rambros leaderboard</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>AKA</th>
+                    <th>Rank</th>
+                    <th>Games</th>
+                    <th>Winrate</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.aka }}</td>
+                    <td>{{ item.rank }}</td>
+                    <td>{{ item.games }}</td>
+                    <td>{{ item.winrate }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</center>
+</html>

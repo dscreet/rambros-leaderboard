@@ -48,8 +48,7 @@ def fetch_data():
 
 @app.route('/')
 def index():
-    fetch_data()
-    return render_template('index.html', data="test")
+    return render_template('index.html', data=fetch_data())
 
 if __name__ == '__main__':
     app.run(debug=True)
