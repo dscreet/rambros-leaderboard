@@ -13,15 +13,15 @@ aka = {
     "acerd": "peaked d4 10 years ago",
     "moon9": "blind to his own mistakes",
     "practice improve": "most passive male player",
-    "Trialcarton52": "skull emoji",
     "xanax": "allergic to good botlanes"
 }
 
 for k,v in config['summoner_ids'].items():
     #error handling...
     ranked_stats = lol_watcher.league.by_summoner("euw1", v)
+    print(ranked_stats)
     soloq_stats = next(entry for entry in ranked_stats if entry['queueType'] == 'RANKED_SOLO_5x5')
-  
+    print(soloq_stats)
     games = soloq_stats["wins"] + soloq_stats["losses"]
     winrate = round(soloq_stats["wins"] / games * 100)
 
