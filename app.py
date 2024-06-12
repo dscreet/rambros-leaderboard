@@ -1,17 +1,27 @@
 import json
 from flask import Flask, render_template
+from flask_caching import Cache
 from riotwatcher import LolWatcher, ApiError
 
 app = Flask(__name__)
+# SimpleCache is sufficient for this app
+cache = Cache(app, config={'CACHE_TYPE': 'SimpleCache', 'CACHE_DEFAULT_TIMEOUT': 300})
 
 with open('config.json', 'r') as config_file:
     config = json.load(config_file)
 
 lol_watcher = LolWatcher(config['api_key'])
 
+# this api call takes long so caching is used
+# reduces time from 0.1s per call to 0.
+@cache.memoize(timeout=3600)  # result is cached for an hour
+def get_match_details(match_id):
+    match = lol_watcher.match.by_id("euw1", match_id)
+    return match
+
 # given a game and a player -> returns if that player won
 def get_match_outcome(name, match_id):
-    match = lol_watcher.match.by_id("euw1", match_id)
+    match = get_match_details(match_id)
     participants = match['info']['participants']
     for player in participants:
         if player['summonerId'] == config['summoner_ids'][name]:
