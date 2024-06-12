@@ -1,5 +1,17 @@
+:root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+}
+
+.dark-mode {
+    --background-color: #15202b;
+    --text-color: #ffffff;
+}
+
 body {
     margin-top: 5em;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 h1 {
@@ -22,4 +34,13 @@ th {
     border-bottom: 2px solid #ddd;
     padding-block: 1rem;
     font-size: 1.25em;
+}
+
+#theme-toggle-button {
+    position: fixed; 
+    top: 15px;
+    right: 15px;
+    width: 50px;
+    height: auto;
+    cursor: pointer;
 }

@@ -16,8 +16,7 @@ lol_watcher = LolWatcher(config['api_key'])
 # reduces time from 0.1s per call to 0.
 @cache.memoize(timeout=3600)  # result is cached for an hour
 def get_match_details(match_id):
-    match = lol_watcher.match.by_id("euw1", match_id)
-    return match
+    return lol_watcher.match.by_id("euw1", match_id)
 
 # given a game and a player -> returns if that player won
 def get_match_outcome(name, match_id):

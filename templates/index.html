@@ -1,37 +1,58 @@
 <!DOCTYPE html>
+
 <head>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
-    <title>rambros leaderboard</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+  <title>rambros leaderboard</title>
+  <script>
+    // apply the saved theme before the rest of the page loads to avoid FOUC
+    // not sure if this is the best solution...
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+    }
+  </script>
 </head>
 <center>
-    <body>
-        <h1>rambros leaderboard</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>AKA</th>
-                    <th>Rank</th>
-                    <th>Games</th>
-                    <th>Winrate</th>
-                    <th>Streak</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for player in data %}
-                <tr>
-                    <td>{{ player.place }}</td>
-                    <td>{{ player.name }}</td>
-                    <td>{{ player.aka }}</td>
-                    <td>{{ player.full_rank }}</td>
-                    <td>{{ player.games }}</td>
-                    <td>{{ player.winrate }}%</td>
-                    <td>{{ player.streak }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </body>
+
+  <body>
+    <h1>rambros leaderboard</h1>
+    <img id="theme-toggle-button" src="{{ url_for('static',filename='pantsgrab.png') }}" alt="pantsgrab">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>AKA</th>
+          <th>Rank</th>
+          <th>Games</th>
+          <th>Winrate</th>
+          <th>Streak</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for player in data %}
+        <tr>
+          <td>{{ player.place }}</td>
+          <td>{{ player.name }}</td>
+          <td>{{ player.aka }}</td>
+          <td>{{ player.full_rank }}</td>
+          <td>{{ player.games }}</td>
+          <td>{{ player.winrate }}%</td>
+          <td>{{ player.streak }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <script>
+      // toggle theme and store to local storage
+      const toggleDarkMode = () => {
+        const isDarkMode = document.documentElement.classList.toggle('dark-mode');
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+      }
+      // event listener for toggle button
+      document.getElementById('theme-toggle-button').addEventListener('click', toggleDarkMode);
+    </script>
+  </body>
 </center>
+
 </html>
