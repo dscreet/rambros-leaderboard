@@ -70,7 +70,7 @@ def get_stats():
                 'tier': soloq_stats["tier"],
                 'rank': soloq_stats["rank"],
                 'lp': soloq_stats["leaguePoints"],
-                'full_rank': f'{soloq_stats["tier"]} {soloq_stats["rank"]} {soloq_stats["leaguePoints"]}lp',
+                'full_rank': f'{soloq_stats["tier"]} {soloq_stats["rank"]} {soloq_stats["leaguePoints"]} LP',
                 'games': games,
                 'winrate': winrate,
                 'streak': f'{streak[1]} {streak[0]}'
