@@ -9,14 +9,6 @@ with open('config.json', 'r') as config_file:
 
 lol_watcher = LolWatcher(config['api_key'])
 
-aka = { 
-    "teadrinker3": "i'm just bad at the game",
-    "acerd": "peaked d4 10 years ago",
-    "moon9": "blind to his own mistakes",
-    "practice improve": "most passive male player",
-    "xanax": "allergic to good botlanes"
-}
-
 # given a game and a player -> returns if that player won
 def get_match_outcome(name, match_id):
     match = lol_watcher.match.by_id("euw1", match_id)
@@ -65,7 +57,7 @@ def get_stats():
             streak = calc_streak(name, match_history)
             player_stats = {
                 'name': name,
-                'aka': aka[name],
+                'aka': config['aka'][name],
                 'tier': soloq_stats["tier"],
                 'rank': soloq_stats["rank"],
                 'lp': soloq_stats["leaguePoints"],
