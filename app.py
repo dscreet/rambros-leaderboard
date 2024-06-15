@@ -19,6 +19,7 @@ def get_match_details(match_id):
     match = lol_watcher.match.by_id("euw1", match_id)
     return match['info']['participants']
 
+# batch process matches
 def process_matches(match_history):
     processed_data = {}
     for match_id in match_history:
@@ -51,6 +52,7 @@ def calc_streak(name, player_matches):
             break
     return streak_type, current_streak
 
+# returns the amount of times the player's bot lane has died in a given game
 def get_bot_lane_deaths(name, match):
     player_team = None
     bot_lane_deaths = 0
@@ -63,6 +65,7 @@ def get_bot_lane_deaths(name, match):
                               if player['lane'] == 'BOTTOM' and player['teamId'] == player_team)
     return bot_lane_deaths
 
+# returns the average number of bot lane deaths in the player's team from the last 10 games
 def calc_avg_bot_lane_deaths(name, player_matches):
     if not player_matches:
         return 0
@@ -88,7 +91,7 @@ def get_stats():
             games = soloq_stats["wins"] + soloq_stats["losses"]
             winrate = round(soloq_stats["wins"] / games * 100)
             match_history = lol_watcher.match.matchlist_by_puuid("euw1", config['puuids'][name], queue=420)
-            processed_player_matches = process_matches(match_history)
+            processed_player_matches = process_matches(match_history[:10])
             streak = calc_streak(name, processed_player_matches)
             avg_bot_lane_deaths = calc_avg_bot_lane_deaths(name, processed_player_matches)
             player_stats = {
